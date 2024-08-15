@@ -1,37 +1,64 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import React from 'react';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { View, Text } from 'react-native';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+function TabBarIcon({ name, color, label }) {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <Ionicons name={name} size={24} color={color} />
+      <Text style={{ color, fontSize: 12, marginTop: 2 }}>{label}</Text>
+    </View>
+  );
+}
+
+export default function AppLayout() {
+  return (
+    <Tabs
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color }) => {
+          let iconName;
+          let label;
+
+          switch (route.name) {
+            case 'index':
+              iconName = focused ? 'home' : 'home-outline';
+              label = 'Home';
+              break;
+            case 'statistics':
+              iconName = focused ? 'stats-chart' : 'stats-chart-outline';
+              label = 'Statistics';
+              break;
+            case 'remote':
+              iconName = focused ? 'radio' : 'radio-outline';
+              label = 'Remote';
+              break;
+            case 'devices':
+              iconName = focused ? 'hardware-chip' : 'hardware-chip-outline';
+              label = 'Devices';
+              break;
+            case 'settings':
+              iconName = focused ? 'settings' : 'settings-outline';
+              label = 'Settings';
+              break;
+            default:
+              return null;
+          }
+
+          return <TabBarIcon name={iconName} color={color} label={label} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: { height: 60 },
+        tabBarItemStyle: { paddingVertical: 5 },
+        tabBarLabel: () => null,
+      })}
+    >
+      <Tabs.Screen name="index" options={{ title: 'Home', headerShown: false }} />
+      <Tabs.Screen name="statistics" options={{ title: 'Statistics' }} />
+      <Tabs.Screen name="remote" options={{ title: 'Remote' }} />
+      <Tabs.Screen name="devices" options={{ title: 'Devices' }} />
+      <Tabs.Screen name="settings" options={{ title: 'Settings' }} />
+    </Tabs>
   );
 }
