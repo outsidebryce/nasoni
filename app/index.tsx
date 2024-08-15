@@ -47,11 +47,19 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userSection}>
-        <Image
-          source={{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ft4.ftcdn.net%2Fjpg%2F03%2F30%2F25%2F97%2F360_F_330259751_tGPEAq5F5bjxkkliGrb97X2HhtXBDc9x.jpg&f=1&nofb=1&ipt=d2f87438fb8344ee037121598fc2f144964136032e88b2275fea56ff66f2b355&ipo=images' }} // Replace with actual avatar URL
-          style={styles.avatar}
-        />
-        <Text style={styles.greeting}>Hello Rebecca</Text>
+        <View style={styles.userInfo}>
+          <Image
+            source={{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ft4.ftcdn.net%2Fjpg%2F03%2F30%2F25%2F97%2F360_F_330259751_tGPEAq5F5bjxkkliGrb97X2HhtXBDc9x.jpg&f=1&nofb=1&ipt=d2f87438fb8344ee037121598fc2f144964136032e88b2275fea56ff66f2b355&ipo=images' }} // Replace with actual avatar URL
+            style={styles.avatar}
+          />
+          <Text style={styles.greeting}>Hello Rebecca</Text>
+        </View>
+        <TouchableOpacity 
+          style={styles.moonButton}
+          onPress={() => console.log('Moon button pressed')}
+        >
+          <Ionicons name="moon-outline" size={24} color="#007AFF" />
+        </TouchableOpacity>
       </View>
       <View style={[styles.presetsContainer, { height: containerHeight - 60 }]}>
         <FlatList
@@ -76,7 +84,12 @@ const styles = StyleSheet.create({
   userSection: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 20,
+  },
+  userInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   avatar: {
     width: 40,
@@ -87,6 +100,22 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  moonButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4, // for Android
   },
   presetsContainer: {
     padding: 20,
