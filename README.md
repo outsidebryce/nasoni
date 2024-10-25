@@ -6,6 +6,8 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 The Nasoni Faucet App provides users with an intuitive interface to interact with their Nasoni faucets, offering features such as temperature control, water flow modes, preset management, and device connectivity.
 
+## Demo
+[Click to watch](https://github.com/outsidebryce/nasoni/raw/main/dev-walkthrough.mp4)
 [![Nasoni Faucet App Demo](https://github.com/outsidebryce/nasoni/raw/main/dev-walkthrough-placeholder.png)](https://github.com/outsidebryce/nasoni/raw/main/dev-walkthrough.mp4)
 
 ## Features
